@@ -10,17 +10,26 @@
         <meta charset="utf-8"/>
 
         <!-- Set the title bar of the page -->
-        <title>COVID</title>
+        <title>Life Saver</title>
 
         <!-- Set the background colour of the document -->
         <style>
-            body {
-              background: #0;
-              color:#cccccc;
-              margin: 0px;
-              padding: 0px;
-              border: 0px;
-            }
+           body {
+            overflow: hidden;
+			background-color: #1a1a1a;
+			color: #fff;
+			font-family: sans-serif;
+			font-size: 24px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			background-image: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+			background-size: 400% 400%;
+			animation: gradient 15s ease infinite;
+		}
+         
             canvas {
                       image-rendering: optimizeSpeed;
                       -webkit-interpolation-mode: nearest-neighbor;
