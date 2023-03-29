@@ -15,20 +15,30 @@
         <!-- Set the background colour of the document -->
         <style>
             body {
-              background: #0;
-              color:#cccccc;
-              margin: 0px;
-              padding: 0px;
-              border: 0px;
+             overflow: hidden;
+                background-color: #1a1a1a;
+                color: #fff;
+                font-family: sans-serif;
+                font-size: 24px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                background-image: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+                background-size: 400% 400%;
+                animation: gradient 15s ease infinite;
             }
-            canvas {
-                      image-rendering: optimizeSpeed;
-                      -webkit-interpolation-mode: nearest-neighbor;
-                      -ms-touch-action: none;
-                      margin: 0px;
-                      padding: 0px;
-                      border: 0px;
+          canvas {
+                image-rendering: optimizeSpeed;
+                -webkit-interpolation-mode: nearest-neighbor;
+                -ms-touch-action: none;
+                margin: 0px;
+                padding: 0px;
+                border: 0px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 2); 
             }
+
             :-webkit-full-screen #canvas {
                  width: 100%;
                  height: 100%;
