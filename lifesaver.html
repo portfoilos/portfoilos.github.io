@@ -21,13 +21,12 @@
             font-family: sans-serif;
             font-size: 24px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
-            border-radius: 20px; /* Rounded corners */
+            margin: 0;
         }
 
         canvas {
@@ -38,7 +37,6 @@
             padding: 0px;
             border: 0px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 2);
-            border-radius: 20px; /* Rounded corners */
         }
 
         :-webkit-full-screen #canvas {
@@ -80,19 +78,69 @@
             width: 100%;
             height: 100%;
         }
+
+        /* Fullscreen button styles */
+        .fullscreen-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 9999;
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .fullscreen-button img {
+            width: 40px;
+            height: 40px;
+        }
     </style>
 </head>
 
 <body>
 <div class="gm4html5_div_class" id="gm4html5_div_id">
     <!-- Create the canvas element the game draws to -->
-    <canvas id="canvas" width="1280" height="720">
-        <p>Your browser doesn't support HTML5 canvas.</p>
-    </canvas>
+    <canvas id="canvas" width="1280" height="720"></canvas>
 </div>
+
+<!-- Fullscreen button -->
+<button class="fullscreen-button" onclick="toggleFullscreen()">
+    <img src="https://cdn2.iconfinder.com/data/icons/media-player-ui/512/Media-Icon-23-512.png" alt="Fullscreen Icon">
+</button>
 
 <!-- Run the game code -->
 <script type="text/javascript" src="html5game/Shooter.js?VUYAC=1629795325"></script>
-<script>window.onload = GameMaker_Init;</script>
+<script>
+    window.onload = GameMaker_Init;
+
+    function toggleFullscreen() {
+        var canvas = document.getElementById("canvas");
+
+        if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+            // Exit fullscreen
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        } else {
+            // Enter fullscreen
+            if (canvas.requestFullscreen) {
+                canvas.requestFullscreen();
+            } else if (canvas.webkitRequestFullscreen) {
+                canvas.webkitRequestFullscreen();
+            } else if (canvas.mozRequestFullScreen) {
+                canvas.mozRequestFullScreen();
+            } else if (canvas.msRequestFullscreen) {
+                canvas.msRequestFullscreen();
+            }
+        }
+    }
+</script>
 </body>
 </html>
