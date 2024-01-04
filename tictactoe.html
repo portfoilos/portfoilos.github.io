@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <title>Tic Tac Toe</title>
     <style>
-        /* Your existing CSS styles */
         body {
             margin: 0;
-            font-family: sans-serif;
+            font-family: 'Dosis', sans-serif;
             overflow: hidden;
-            background-color: #111;
-            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background: linear-gradient(45deg, #192a56, #273c75);
+            color: #fff;
         }
 
-         .game-container {
-            background: rgba(0, 0, 0, 0.6);
+        .game-container {
+            background: rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 10px;
             text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
         .board {
@@ -41,57 +41,39 @@
             font-size: 32px;
             cursor: pointer;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .cell:hover {
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.02);
         }
 
         .status {
             margin-bottom: 10px;
+            font-size: 20px;
         }
+	
 
+	
         .restart-button,
         .ai-toggle {
             padding: 10px 20px;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
-            background-color: #3498db;
+            background-color: #2ecc71;
             color: #fff;
             border: none;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
             margin: 5px;
         }
 
         .restart-button:hover,
         .ai-toggle:hover {
-            background-color: #2980b9;
+            background-color: #27ae60;
+            transform: scale(1.05);
         }
-
-
-        /* Winning animation */
-        @keyframes confetti {
-            0% {
-                transform: translateY(0) rotateZ(0);
-            }
-            100% {
-                transform: translateY(1000px) rotateZ(300deg);
-            }
-        }
-
-        .confetti {
-            width: 10px;
-            height: 10px;
-            position: fixed;
-            background-color: gold;
-            opacity: 0.7;
-            z-index: 999;
-            animation: confetti 4s ease forwards;
-        }
-
-        /* ... Your existing styles */
     </style>
 </head>
 <body>
@@ -123,6 +105,7 @@
             const status = document.querySelector('.status');
             const restartButton = document.querySelector('.restart-button');
             const aiToggle = document.querySelector('.ai-toggle');
+	    let isRestarting = false
 
             let currentPlayer = 'X';
             let gameActive = true;
@@ -139,15 +122,91 @@
             ];
 
             let isAIEnabled = false;
+	    let isFirstMove = true; 
 
             const aiMove = () => {
-                const availableCells = [...cells].filter((cell) => cell.textContent === '');
-                const randomIndex = Math.floor(Math.random() * availableCells.length);
-                const selectedCell = availableCells[randomIndex];
-                setTimeout(() => {
-                    selectedCell.click();
-                }, 1000);
-            };
+        const availableCells = [...cells].filter((cell) => cell.textContent === '');
+    let selectedCell;
+
+    if (isFirstMove && gameState[4] === 'X') {
+        const corners = [0, 2, 6, 8].filter((index) => gameState[index] === '');
+        if (corners.length > 0) {
+            const randomCorner = corners[Math.floor(Math.random() * corners.length)];
+            selectedCell = cells[randomCorner];
+        }
+    }
+
+    // Logic to prioritize winning moves
+    for (let i = 0; i < winningConditions.length; i++) {
+        const [a, b, c] = winningConditions[i];
+        if (
+            gameState[a] === currentPlayer &&
+            gameState[b] === currentPlayer &&
+            gameState[c] === ''
+        ) {
+            selectedCell = cells[c];
+            break;
+        } else if (
+            gameState[a] === currentPlayer &&
+            gameState[c] === currentPlayer &&
+            gameState[b] === ''
+        ) {
+            selectedCell = cells[b];
+            break;
+        } else if (
+            gameState[b] === currentPlayer &&
+            gameState[c] === currentPlayer &&
+            gameState[a] === ''
+        ) {
+            selectedCell = cells[a];
+            break;
+        }
+    }
+
+    // If no winning move, prioritize blocking opponent's winning moves
+    if (!selectedCell) {
+        for (let i = 0; i < winningConditions.length; i++) {
+            const [a, b, c] = winningConditions[i];
+            if (
+                gameState[a] !== '' &&
+                gameState[a] !== currentPlayer &&
+                gameState[a] === gameState[b] &&
+                gameState[c] === ''
+            ) {
+                selectedCell = cells[c];
+                break;
+            } else if (
+                gameState[b] !== '' &&
+                gameState[b] !== currentPlayer &&
+                gameState[b] === gameState[c] &&
+                gameState[a] === ''
+            ) {
+                selectedCell = cells[a];
+                break;
+            } else if (
+                gameState[c] !== '' &&
+                gameState[c] !== currentPlayer &&
+                gameState[c] === gameState[a] &&
+                gameState[b] === ''
+            ) {
+                selectedCell = cells[b];
+                break;
+            }
+        }
+    }
+
+    // If neither winning nor blocking moves available, pick a random cell
+    if (!selectedCell) {
+        const randomIndex = Math.floor(Math.random() * availableCells.length);
+        selectedCell = availableCells[randomIndex];
+    }
+
+    // Make the move instantly
+    setTimeout(() => {
+        selectedCell.click();
+    }, );
+};
+
 
             const handleCellClick = (e) => {
                 const cell = e.target;
@@ -162,11 +221,14 @@
                 checkWin();
                 checkDraw();
                 togglePlayer();
+		isFirstMove = false;	
 
                 if (isAIEnabled && currentPlayer === 'O' && gameActive) {
                     aiMove();
                 }
             };
+
+
 
             const checkWin = () => {
                 for (let i = 0; i < winningConditions.length; i++) {
@@ -179,17 +241,27 @@
                         gameActive = false;
                         status.textContent = `Player ${currentPlayer} wins!`;
                         confetti();
-                        return;
-                    }
+                         if (!isRestarting) {
+                    isRestarting = true;
+                    setTimeout(() => {
+                        restartGame();
+                        isRestarting = false; // Reset the flag after restarting
+                    }, 500); // Adjust this time to match the confetti animation duration
                 }
-            };
+                return;
+        }
+    }
+};
 
             const checkDraw = () => {
-                if (!gameState.includes('')) {
-                    gameActive = false;
-                    status.textContent = "It's a draw!";
-                }
-            };
+    if (!gameState.includes('')) {
+        gameActive = false;
+        status.textContent = "It's a draw!";
+        setTimeout(() => {
+            restartGame(); // Restart the game after a delay
+        }, 2000); // Adjust this time as needed
+    }
+};
 
             const togglePlayer = () => {
                 currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
