@@ -4,267 +4,177 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OyYoyBoy</title>
-    <meta content="OyYoyBoy" property="og:title">
-    <meta content="Welcome to my portfolio, learn more about me and check out my games!" property="og:description">
-    <meta content="http://oyyoyboy.com/" property="og:url">
-    <meta content="https://embed.com/embedimage.png" property="og:image">
-    <meta content="#001f3f" data-react-helmet="true" name="theme-color">
-
-    <link rel="shortcut icon" type="image/png" href="https://i.ibb.co/4s087B7/favicon-32x32.png">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
     <style>
-        /* CSS styles here */
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            background-color: #001f3f;
-            color: #fff;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-family: 'Rubik', sans-serif;
             margin: 0;
-        }
-
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 0 20px; /* Added padding */
-        }
-
-        nav {
+            padding: 0;
+            box-sizing: border-box;
             display: flex;
             justify-content: center;
-            margin-bottom: 50px;
-            font-size: 24px; /* Increased font size */
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            transition: transform 0.6s;
-            margin: 0 10px;
-        }
-
-        nav a:hover {
-            transform: translateY(-10px);
-        }
-
-        nav .home {
-            color: #54b3f4;
-        }
-
-        #Home {
-            text-align: center;
-            background-color: #001f3f;
-            opacity: 1;
-            padding: 300px 0; /* Adjusted padding */
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            height: 100vh;
+            background-color: #061E3F;
+            color: #ffffff;
+            font-weight: lighter; 
+        }
+        .container {
+            position: relative;
+            margin: 0 auto;
+            width: 1200px;
+            display: flex;
+        }
+        .header, .content, .social-icons {
+            text-align: left;
+            margin-bottom: 40px;
+        }
+        .divider {
+            margin: 45px 0; 
+            border-bottom: 1.5px solid #ffffff; 
+            width: 4.5%;
+        }
+        .social-icons {
+            text-align: left;
+        }
+        .social-icons a {
+            margin-right: 60px;
+            display: inline-block;
+        }
+        .social-icons img {
+            width: 65px;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 36px;
+            margin-top: 10px; 
+        }
+        h2 {
+            font-size: 72px;
+            margin-top: 0;
         }
 
-        #Home h1 {
-            color: #fff;
-            font-size: 3.75em; /* Adjusted font size */
-            margin: 0;
-            max-width: 600px;
+        .text-container {
+            width: 50%;
+	    margin-right:
+		
         }
 
-        #Home p {
-            color: #fff;
-            margin-top: 20px;
-            font-size: 1.5em;
+        .grid-container {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: 50% 50%;
+            border-radius: 50px;
+            overflow: hidden;
+	    width:550px
+	    height: 550px
+            gap: 10px;	
         }
 
-        .navbar {
-            position: fixed;
-            bottom: 0;
+        .grid-span-2 {
+            grid-column: span 2;
+        }
+        
+        .item {
+            display: flex;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .item a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .item img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .item .text {
+            position: absolute;
+            left: 25px;
+            bottom: 20px;
+            font-size: 36px;
+            color: white;
+        }
+
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
             left: 0;
             width: 100%;
-            background-color: #f8f8f8;
-            padding: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            font-size: 20px; /* Increased font size */
-        }
-
-        .navbar ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            text-align: center;
-        }
-
-        .navbar ul li {
-            display: inline-block;
-            margin: 0 10px;
-        }
-
-        .navbar ul li a {
-            text-decoration: none;
-            color: #333;
-            font-size: 18px;
-        }
-
-        .navbar ul li a:hover {
-            color: #555;
-            text-decoration: underline;
-        }
-
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-            animation: toastFadeIn 0.3s ease-in;
-        }
-
-        .toast.fade-out {
-            animation: toastFadeOut 0.3s ease-out;
-        }
-
-        .toast .column {
-            display: flex;
-            align-items: center;
-            margin-right: 10px;
-        }
-
-        .toast .column i {
-            margin-right: 5px;
-        }
-
-        .toast .fa-check {
-            color: green;
-        }
-
-        .toast .fa-xmark {
-            color: #fff;
-            cursor: pointer;
-        }
-
-        @keyframes toastFadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes toastFadeOut {
-            0% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-        }
-
-        .typed-cursor {
-            font-size: 2em;
-            line-height: 1;
-        }
-
-        /* Responsive styles */
-        @media screen and (max-width: 768px) {
-            .container {
-                width: 100%;
-            }
-
-            nav {
-                font-size: 20px;
-            }
-
-            #Home {
-                padding: 100px 0;
-            }
-
-            #Home h1 {
-                font-size: 3em;
-            }
-
-            #Home p {
-                font-size: 1.2em;
-            }
-
-            .navbar {
-                font-size: 18px;
-            }
+            height: 100%;
+            background: linear-gradient(to top right, rgba(0,0,0,0) 0%, rgba(0,0,0,128) 100%);
         }
     </style>
-    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-    <script>
-        function copyToClipboard() {
-            const text = "oyyoyboy";
-            navigator.clipboard.writeText(text);
-
-            // Create a Toast notification
-            const toast = document.createElement("div");
-            toast.classList.add("toast");
-            toast.innerHTML = `
-                <div class="column">
-                    <i class="fa-solid fa-check"></i>
-                    <span>Discord copied!</span>
-                </div>
-                <i class="fa-solid fa-xmark" onclick="removeToast(this.parentElement)"></i>
-            `;
-            document.body.appendChild(toast);
-
-            // Set a timeout to remove the toast after 3 seconds
-            setTimeout(() => {
-                toast.classList.add("fade-out");
-                toast.addEventListener("animationend", () => {
-                    toast.remove();
-                });
-            }, 3000);
-        }
-
-        function removeToast(toast) {
-            toast.classList.add("fade-out");
-            toast.addEventListener("animationend", () => {
-                toast.remove();
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const typed = new Typed('.typing-demo', {
-                strings: ["I'm OyYoyBoy, and I'm passionate about video editing using Sony Vegas, coding, and creating video games."],
-                typeSpeed: 15,
-                showCursor: true,
-            });
-        });
-    </script>
 </head>
 <body>
-    <div class="container">
-        <section id="header">
-            <h1 style="font-size: 2em; color: #fff;">OyYoyBoy</h1> <!-- Increased font size -->
-            <nav>
-                <a class="home" href="#Home">Home</a>
-                <a href="https://oyyoyboy.com/lifesaver">Life Saver</a>
-                <a href="https://oyyoyboy.com/tictactoe">Tic Tac Toe</a>
-                <a href="https://oyyoyboy.com/fruitninja">Fruit Ninja</a>
-            </nav>
-        </section>
-        <section id="Home">
-            <h1 style="font-size: 3.75em;">Hello, I'm OyYoyBoy!</h1>
-            <p><span class="typing-demo" style="font-size: 1.5em;"></span></p>
-        </section>
+
+<div class="container">
+
+    <div class="text-container">
+        <div class="header">
+            <h1>Hello, I'm</h1><h2>OyYoyBoy</h2> 
+        </div>
+        <div class="divider"></div>
+        <div class="content">
+           <p>I'm passionate about video<br> editing using Sony Vegas,<br>coding, and creating video games.</p>
+        </div>
+        <div class="divider"></div>
+        <div class="social-icons">
+            <a id="discord" href="#"><img src="discord.png" alt="Discord"></a>
+            <a id="youtube" href="#"><img src="youtube.png" alt="Youtube"></a>
+        </div>
     </div>
-    <div class="navbar">
-        <ul>
-            <li><a href="https://youtube.com/oyyoyboy" target="_blank">YouTube</a></li>
-            <li><a href="#" onclick="copyToClipboard();">Discord</a></li>
-        </ul>
+
+   <div class="grid-container">
+    <div class="item grid-span-2">
+        <a href="https://oyyoyboy.com/lifesaver">
+            <div class="gradient-overlay"></div>
+            <img src="lifesaver.png" alt="Lifesaver">
+            <div class="text">Life<br> Saver</div>
+        </a>
     </div>
+    <div class="item">
+        <a href="https://oyyoyboy.com/tictactoe">
+            <div class="gradient-overlay"></div>
+            <img src="tictactoe.png" alt="TicTacToe">
+            <div class="text">Tic Tac<br> Toe</div>
+        </a>
+    </div>
+    <div class="item">
+        <a href="https://oyyoyboy.com/fruitninja">
+            <div class="gradient-overlay"></div>
+            <img src="fruitninja.png" alt="Fruit Ninja">
+            <div class="text">Fruit<br> Ninja</div>
+        </a>
+    </div>
+</div>
+
+    
+</div>
+<script>
+    document.getElementById('discord').addEventListener('click', function(event) {
+        event.preventDefault();
+        const textToCopy = 'oyyoyboy';
+        navigator.clipboard.writeText(textToCopy).then(function() {
+            console.log('Copied to clipboard: ' + textToCopy);
+        }, function(err) {
+            console.error('Error in copying text: ', err);
+        });
+    });
+
+    document.getElementById('youtube').addEventListener('click', function(event) {
+        event.preventDefault();
+        window.open('https://youtube.com/@oyyoyboy', '_blank');
+    });
+</script>
+
 </body>
 </html>
